@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Employee Management System</title>
+
+    <link rel="stylesheet" th:href="@{/style.css}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Employee Management System</h1>
+
+    <!-- Employee Form -->
+
+    <div class="card">
+
+        <h2>Add / Update Employee</h2>
+
+        <form th:action="@{/save}"
+              th:object="${employee}"
+              method="post">
+
+            <div class="form-group">
+                <label>Employee ID</label>
+                <input type="number"
+                       th:field="*{id}"
+                       placeholder="Enter Employee ID"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text"
+                       th:field="*{name}"
+                       placeholder="Enter Employee Name"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Age</label>
+                <input type="number"
+                       th:field="*{age}"
+                       placeholder="Enter Age"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Designation</label>
+                <input type="text"
+                       th:field="*{designation}"
+                       placeholder="Enter Designation"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Salary</label>
+                <input type="number"
+                       th:field="*{salary}"
+                       placeholder="Enter Salary"
+                       required>
+            </div>
+
+            <button type="submit" class="save-btn">
+                Save Employee
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- Employee Table -->
+
+    <div class="card">
+
+        <h2>Employee Details</h2>
+
+        <table>
+
+            <thead>
+
+            <tr>
+
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Designation</th>
+                <th>Salary</th>
+                <th>Actions</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr th:each="emp : ${employees}">
+
+                <td th:text="${emp.id}"></td>
+                <td th:text="${emp.name}"></td>
+                <td th:text="${emp.age}"></td>
+                <td th:text="${emp.designation}"></td>
+                <td th:text="${emp.salary}"></td>
+
+                <td>
+
+                    <a th:href="@{/edit/{id}(id=${emp.id})}">
+                        <button class="edit-btn" type="button">
+                            Edit
+                        </button>
+                    </a>
+
+                    <a th:href="@{/delete/{id}(id=${emp.id})}"
+                       onclick="return confirm('Delete this employee?');">
+
+                        <button class="delete-btn" type="button">
+                            Delete
+                        </button>
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
